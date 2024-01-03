@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="text-gray-700 body-font overflow-hidden">
+    <div class="container px-5 py-24 mx-auto">
+      <div class="lg:w-4/5 mx-auto flex flex-wrap">
+        <div class="w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+            <h2 class="text-sm title-font text-gray-500 tracking-widest">AGENT</h2>
+            <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">{{ agent.user.username }}</h1>
+            <div class="flex mb-4">
+                <a href="{% url 'agents:agent-detail' pk=agentref %}" class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">
+                    Overview
+                <a>
+                <a href="{% url 'agents:agent-history' pk=agentref %}" class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">
+                        History
+                </a>
+            </div>
+            <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
+                <div class="text-center lg:w-2/3 w-full">
+                <h2 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">
+                   Agent History Deatils
+                </h2>
+                <div class="flex flex-wrap -m-4 text-center">
+                    <div class="p-4 md:w-1/3 sm:w-1/2 w-full">
+                        <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                        <h2 class="title-font font-medium text-3xl text-gray-900">{{ total_lead_count }} </h2>
+                        <p class="leading-relaxed">Total Leads</p>
+                        </div>
+                    </div>
+                    <div class="p-4 md:w-1/3 sm:w-1/2 w-full">
+                        <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                        <h2 class="title-font font-medium text-3xl text-gray-900"> {{total_in_past30}} </h2>
+                        <p class="leading-relaxed">Leads added in last 30 days</p>
+                        </div>
+                    </div>
+                    <!-- <div class="p-4 md:w-1/3 sm:w-1/2 w-full">
+                        <div class="border-2 border-gray-200 px-4 py-6 rounded-lg">
+                        <h2 class="title-font font-medium text-3xl text-gray-900"> converted_in_past30 </h2>
+                        <p class="leading-relaxed">Converted in last 30 days</p>
+                        </div>
+                    </div> -->
+                </div>
+              </div>
+           
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
