@@ -219,7 +219,7 @@ class AssignAgentView(OragniserLoginRequiredMixin,FormView):
       kwargs=super(AssignAgentView,self).get_form_kwargs(**kwargs)
       pk = self.kwargs.get('pk')
       kwargs.update({
-         "request":self.request,
+         # "request":self.request,
          "pk":pk
       })
       return kwargs
