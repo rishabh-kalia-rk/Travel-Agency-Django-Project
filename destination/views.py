@@ -32,8 +32,12 @@ class DestinationAddView(OragniserLoginRequiredMixin,CreateView):
 
 
 class DestinationDetail(DetailView):
-   template_name="leads/destination_detail.html"
-   context_object_name="lead"
+   template_name="destination/detination_detail.html"
+   context_object_name="destination"
+
+   def get_queryset(self):
+         pk=self.kwargs["pk"]
+         return Destination.objects.filter(pk=pk)
 
 
 class DestinationUpdate(OragniserLoginRequiredMixin,UpdateView):

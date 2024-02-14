@@ -78,6 +78,8 @@ class Category(models.Model):
 
 
 def post_user_create_signal(sender,instance,created,**kwargs):
+    # instance -instance of model that triggered the signal, User
+    # created - either new instance created (True) or updated (False only
     if created:
         UserProfile.objects.create(user=instance)
 
@@ -89,6 +91,3 @@ def delete_user(sender, instance, **kwargs):
         instance.user.delete()
 
 
-@receiver(pre_save, sender=Agent)
-def set_full_name(sender, instance, **kwargs):
-    instance.user.agent_full_name = f"{instance.user.first_name} {instance.user.last_name}"

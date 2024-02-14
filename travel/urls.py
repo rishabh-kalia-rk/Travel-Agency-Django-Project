@@ -21,7 +21,7 @@ PasswordResetCompleteView,
 )
 
 from django.urls import path
-from leads.views import (landing_page,
+from leads.views import (
 LandingPageView,
 SignupView,
 )

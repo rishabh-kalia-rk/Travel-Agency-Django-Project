@@ -38,20 +38,6 @@ class SignupView(CreateView):
 class LandingPageView(TemplateView):
    template_name="landing.html"
 
-   def dispatch(self, request,*args,**kwargs):
-      if request.user.is_authenticated:
-         return redirect("dashboard")
-      return super().dispatch(request,*args,**kwargs)
-
-def landing_page(request):
-#    return render(request,'landing.html')
-   return render(request,'landing.html')
-
-def home_page(request):    
-    return render (request,"leads/home_page.html")
-
-
-
 
 class LeadListView(LoginRequiredMixin,ListView):
    template_name="leads/lead_list.html"

@@ -23,6 +23,8 @@ class AgentListView(OragniserLoginRequiredMixin,generic.ListView):
 
     def get_queryset(self):
         organisation=self.request.user.userprofile
+        # userprofile: Accesses the related UserProfile instance of the currently logged-in user.
+       
         return Agent.objects.filter(organisation=organisation)
 
 
@@ -38,12 +40,14 @@ class AgentCreateView(OragniserLoginRequiredMixin,generic.CreateView):
         user.is_agent=True
         user.is_organisor=False
         user.set_password(f"{random.randint(0,1000000)}")
+        user.agent_full_name=f"{user.first_name} {user.last_name}"
         user.save()
 
         Agent.objects.create(
             user=user,
             organisation=self.request.user.userprofile
         )
+        # create and save the instance to database.
         send_mail(
             subject="you are invited to be an agent",
             message="you were added as an agent on RK World site. Please come and login to satrt.",
@@ -85,41 +89,31 @@ class AgentUpdateView(OragniserLoginRequiredMixin,generic.UpdateView):
         # Initialize the form with the instance of the User model
         form = AgentModelForm(instance=agent_instance.user)
 
-        # Access the related Model2 instance through the OneToOneField
-        model_user_instance = agent_instance.user
-
-        # Populate the context with data from Model2
-        context['model2_data'] = {
-            'user_id': model_user_instance.id,
-            # Add other fields from Model2 as needed
-        }
-
         # Add the form to the context
         context['form'] = form
 
         return context
     
     def form_valid(self, form):
-        agent_instance = self.object  # Assuming self.object is the Agent instance
+  
+        agent_instance = form.save(commit=False)
+
+        # Get the associated User instance
         user_instance = agent_instance.user
 
         # Update only the fields mentioned in the form data
         for field, value in form.cleaned_data.items():
             setattr(user_instance, field, value)
+        
+        user_instance.agent_full_name=f"{user_instance.first_name} {user_instance.last_name}"
 
-        # Save the updated user_instance
+        # Save the updated User instance
         user_instance.save()
+        
+        agent_instance.save()
 
         return redirect(reverse("agents:agent-list"))
     
-
-
-        
-
-
-
-
-
 
 
 class AgentDeleteView(OragniserLoginRequiredMixin,generic.DeleteView):
